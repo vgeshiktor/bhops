@@ -1,0 +1,86 @@
+package main
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"os"
+)
+
+const (
+	tokenEndpoint  = "https://login.microsoftonline.com/fdfbecf5-35d4-4efb-a184-adf40091e4b6/oauth2/v2.0/token"
+	graphAPI       = "https://graph.microsoft.com/v1.0/me/messages"
+	clientID       = "7af5bf6f-a793-4308-837f-c7c9b555cd56"
+	clientSecret   = "YOUR_CLIENT_SECRET"
+	tenantID       = "fdfbecf5-35d4-4efb-a184-adf40091e4b6"
+)
+
+func getToken() (string, error) {
+	data := fmt.Sprintf("client_id=%s&scope=https://graph.microsoft.com/.default&client_secret=%s&grant_type=client_credentials",
+		clientID, clientSecret)
+
+	req, err := http.NewRequest("POST", tokenEndpoint, bytes.NewBuffer([]byte(data)))
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	var result map[string]interface{}
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	if err != nil {
+		return "", err
+	}
+
+	token, ok := result["access_token"].(string)
+	if !ok {
+		return "", fmt.Errorf("could not parse access token")
+	}
+
+	return token, nil
+}
+
+func getEmails(token string) error {
+	req, err := http.NewRequest("GET", graphAPI, nil)
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Authorization", "Bearer "+token)
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	// Optionally, parse or save email data here.
+	fmt.Println(string(body))
+	return nil
+}
+
+func main() {
+	token, err := getToken()
+	if err != nil {
+		log.Fatalf("Error getting token: %v", err)
+	}
+
+	err = getEmails(token)
+	if err != nil {
+		log.Fatalf("Error getting emails: %v", err)
+	}
+}

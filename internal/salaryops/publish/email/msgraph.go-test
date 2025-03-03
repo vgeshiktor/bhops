@@ -1,0 +1,17 @@
+package email
+
+import (
+	"msal"
+)
+
+const (
+	MS_GRAPH_BASE_URL = "https://graph.microsoft.com/v1.0",
+)
+
+func GetAccessToken(
+	clientID string,
+	clientSecret string,
+	scopes []string,
+) (string, error) {
+	client := 
+}

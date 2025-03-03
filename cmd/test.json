@@ -1,0 +1,38 @@
+{
+    "editor.fontSize": 16,
+    "editor.fontFamily": "Cascadia Code",
+    "editor.formatOnSave": true,
+    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.fontWeight": 500,
+    "terminal.integrated.lineHeight": 1.1,
+    "prettier.tabWidth": 3,
+    "terminal.integrated.tabs.enableAnimation": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.guides.bracketPairs": true,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "workbench.colorCustomizations": {},
+    "editor.inlineSuggest.enabled": true,
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "aeschli.vscode-css-formatter"
+    },
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
+    "emmet.triggerExpansionOnTab": true,
+    "editor.fontWeight": "normal",
+    "editor.wordWrap": "wordWrapColumn",
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+            "source.fixAll": true
+        }
+    },
+    "go.lintTool": "golangci-lint",
+    "go.formatTool": "gofmt"
+}
