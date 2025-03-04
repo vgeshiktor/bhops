@@ -24,6 +24,8 @@ func(m *Msg) KeepAlive() error {
 
 
 func fetchMessages(numOfMessages int, timeout time.Duration) ([]Msg, error) {
+	_ = numOfMessages
+	_ = timeout
 	return nil, nil
 }
 

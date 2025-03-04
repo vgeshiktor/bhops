@@ -7,7 +7,7 @@ import (
 )
 
 const (
-    MONTHLY_ATTENDANCE_REPORT_XLS_PATH = "/Users/vadimgeshiktor/repos/github.com/vgeshiktor/bhops/internal/attendanceops/input/01-2025.xlsx"
+    MONTHLY_ATTENDANCE_REPORT_XLS_PATH = "/Users/vadimgeshiktor/repos/github.com/vgeshiktor/bhops/internal/attendanceops/input/02-2025.xlsx"
     WORKER_DETAILS_JSON_PATH = "/Users/vadimgeshiktor/repos/github.com/vgeshiktor/bhops/internal/attendanceops/config/id2worker.json"
     
     WORKER_HOURS_JSON_PATH = "/Users/vadimgeshiktor/repos/github.com/vgeshiktor/bhops/internal/attendanceops/input/workershours.json"

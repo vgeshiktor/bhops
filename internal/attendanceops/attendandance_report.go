@@ -304,7 +304,7 @@ func (a *AttendanceReport) createExcelSheet() (*excelize.File, error) {
 		RightToLeft: &RightToLeft, // Set RightToLeft to true
 	})
 	if err != nil {
-		log.Error().Msgf("failed to set sheet view to RTL, error: %w", err)
+		log.Error().Msgf("failed to set sheet view to RTL, error: %v", err)
 	}
 
 	// Set the width of column A to 20
