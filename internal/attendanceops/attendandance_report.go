@@ -12,6 +12,13 @@ import (
 	"github.com/xuri/excelize/v2"
 )
 
+// Constants for sheet configuration
+const (
+    DefaultSheetName = "Sheet1"
+    DefaultColumnWidth = 20
+    WorkerRowSpacing = 18
+)
+
 type WorkerDetails struct {
 	WorkerID           string  `json:"worker_id"`
 	Name               string  `json:"name"`
@@ -289,8 +296,8 @@ func (a *AttendanceReport) createExcelSheet() (*excelize.File, error) {
 	f := excelize.NewFile()
 
 	// Create a new sheet.
-	sheetName := "Sheet1"
-	index, err := f.NewSheet("Sheet1")
+	sheetName := DefaultSheetName
+	index, err := f.NewSheet(sheetName)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create new sheet, error: %w", err)
 	}
@@ -307,12 +314,12 @@ func (a *AttendanceReport) createExcelSheet() (*excelize.File, error) {
 		log.Error().Msgf("failed to set sheet view to RTL, error: %v", err)
 	}
 
-	// Set the width of column A to 20
+	// Set the width of column A to DefaultColumnWidth
 	if err := f.SetColWidth(
 		sheetName,
 		"A",
 		"D",
-		20); err != nil {
+		DefaultColumnWidth); err != nil {
 		log.Error().Err(err)
 	}
 
@@ -581,8 +588,8 @@ func writeWorkerToSheet(f *excelize.File, worker Worker, startRow int) int {
 			worker.AbsenseHours, 'f', 1, 64),
 		NumericCellStyle())
 
-	// Adding some space between tablesCRturn startRow + 18
-	return startRow + 18
+	// Adding some space between tablesCRturn startRow + WorkerRowSpacing
+	return startRow + WorkerRowSpacing
 }
 
 func TimeStrToFloat64(timeStr string) float64 {
